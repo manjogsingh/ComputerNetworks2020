@@ -1,5 +1,3 @@
-#include <Message.h>
-
-class HandshakeMesage : public Message {
+class HandshakeMesage {
 
 };
