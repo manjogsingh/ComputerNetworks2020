@@ -1,32 +1,35 @@
 CC = clang++ -std=c++11
 
-tag = -i
+#The Target Binary Program
+TARGET      	:= p2pFileSharing
 
-ifdef linux
-tag = -n
-endif
+#The Directories - Source, Objects and Binary
+SRC_DIR			:= ./src
+INC_DIR 		:= -I./include
+OBJ_DIR 		:= ./obj
+TARGET_DIR 		:= ./bin
 
-main: ActualMessage.o Client.o Server.o HeaderMessage.o logger.o
-	$(CC) -o main.o ActualMessage.o Client.o Server.o HeaderMessage.o logger.o
+SRC_FILES 		:= $(wildcard $(SRC_DIR)/*.cpp)
+OBJ_FILES		:= $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
 
-main.o: src/main.cpp
-	$(CC) -g -c src/main.cpp
+TARGET_FILES	:= $(TARGET_DIR)/$(TARGET)
 
-ActualMessage.o: src/ActualMessage.cpp
-	$(CC) -g -c src/ActualMessage.cpp
+$(TARGET_FILES): $(OBJ_FILES)
+	$(CC) -o $@ $^
 
-Client.o: src/Client.cpp
-	$(CC) -g -c src/Client.cpp
+$(OBJ_FILES): | $(OBJ_DIR)
 
-Server.o: src/Server.cpp
-	$(CC) -g -c src/Server.cpp
+$(TARGET_FILES): | $(TARGET_DIR)
 
-HeaderMessage.o: src/HeaderMessage.cpp
-	$(CC) -g -c src/HeaderMessage.cpp
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	$(CC) $(INC_DIR) -c -o $@ $<
 
-logger.o: src/logger.cpp
-	$(CC) -g -c src/logger.cpp
+$(TARGET_DIR): 
+	mkdir -p $(TARGET_DIR)
+
+$(OBJ_DIR): 
+	mkdir -p $(OBJ_DIR)
 
 clean:
-	rm -f *.o
-	rm -f *.out
+	rm -rf $(OBJ_DIR)
+	rm -rf $(TARGET_DIR)
