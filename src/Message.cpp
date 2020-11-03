@@ -2,21 +2,21 @@
 #include <cstddef>
 #include <string>
 #include "Payload.cpp"
+using namespace std;
 //need to include payload and messagetype class
-enum class byte : unsigned char {};
-enum class MessageType { CHOKE = 0, UNCHOKE = 1, INTERESTED = 2, NOT_INTERESTED = 3, HAVE = 4, BITFIELD = 5, REQUEST = 6, PIECE = 7 }
+enum class MessageType { CHOKE = 0, UNCHOKE = 1, INTERESTED = 2, NOT_INTERESTED = 3, HAVE = 4, BITFIELD = 5, REQUEST = 6, PIECE = 7 };
 class Message {
 	static const long int serialVersionUID = 8799977982265952720L;
 	int length;
-	byte type;
-	byte[] payload;
+	unsigned char type;
+	unsigned char[] payload;
 	MessageType messageType;
 	Payload msgPayload;
 
 public: Message() {
 	super();
 }
-public: Message(int lenght, byte type, byte[] payload) {
+public: Message(int lenght, unsigned char type, unsigned char payload[]) {
 	this->setlength(length);
 	this->setType(type);
 	this->setPayload(payload);
@@ -28,23 +28,23 @@ public: int getLenght() {
 public: void setlength(int lenght) {
 	this->length = length;
 }
-public: byte getType() {
+public: unsigned char getType() {
 	return type;
 }
-public: void setType(byte type) {
+public: void setType(unsigned char type) {
 	this->type = type;
 }
-public: byte[] getPayload() {
+public: unsigned char getPayload() {
 		  return payload;
 	  }
-public: void setPayload(byte[] payload) {
+public: void setPayload(unsigned char payload) {
 	this->payload = payload;
 }
 public: long setSerialversionuid() {
 	return serialVersionUID;
 }
 
-public: void setMsgType(byte type) {
+public: void setMsgType(unsigned char type) {
 
 	switch (int type) {
 	case 0:
@@ -91,7 +91,6 @@ public: void setMsgPayload(Payload msgPayload) {
 public: String toString() override{
 		  return "Message [length=" + this->getLength() + ", type=" + this->getMessageType() + "]";
 	  }
-
 
 };
 

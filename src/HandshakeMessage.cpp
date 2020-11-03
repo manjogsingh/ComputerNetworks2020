@@ -2,59 +2,59 @@
 #include <cstddef>
 #include <string>
 
-enum class byte : unsigned char {};
+using namespace std;
 
 class Handshake
 {
 private: static const long int serialVersionUID = 8799977982265952720L;
 private: static const std::string headerContent = "P2PFILESHARINGPROJ";
-private: byte header;
-private: byte zeroBits;
-private: byte peerID;
+private: unsigned char header;
+private: unsigned char zeroBits;
+private: unsigned char peerID;
 
 public: void HandShake(int peerId) {
-	this->setHeader(new byte[18]);
+	this->setHeader(new unsigned char[18]);
 	int indexI = 0;
 	while (indexI < getHeadercontent().length()) {
-		this->getHeader()[indexI] = (byte)(getHeadercontent().at(indexI));
+		this->getHeader()[indexI] = (unsigned char)(getHeadercontent().at(indexI));
 		indexI++;
 	}
-	this->setPeerID(new byte[4]);
+	this->setPeerID(new unsigned char[4]);
 	this->setPeerID(ByteBuffer.allocate(4).putInt(peerId).array());
-	this->setZeroBits(new byte[10]);
+	this->setZeroBits(new unsigned char[10]);
 	int indexJ = 0;
 	while (indexJ < 10) {
-		this->getZeroBits()[indexJ] = byte;
+		this->getZeroBits()[indexJ] = unsigned char;
 		indexJ++;
 	}
 }
 
-public: byte getHeader()
+public: unsigned char getHeader()
 {
 	return header;
 }
 
 public:
-	void setHeader(byte header)
+	void setHeader(unsigned char header)
 	{
 		this->header = header;
 	}
 
-public: byte getZeroBits()
+public: unsigned char getZeroBits()
 {
 	return zeroBits;
 }
 
-public: byte getPeerID()
+public: unsigned char getPeerID()
 {
 	return peerID;
 }
-public: void setZeroBits(byte zeroBits) {
+public: void setZeroBits(unsigned char zeroBits) {
 	this->zeroBits = zeroBits;
 }
 
 public:
-	void setPeerID(byte peerID)
+	void setPeerID(unsigned char peerID)
 	{
 		this->peerID = peerID;
 	}
@@ -68,7 +68,7 @@ public: static std::string getHeadercontent() {
 
 
 public: std::string toString() override {
-	return "HandShake [peerID=" + std::to_string(this->getPeerID()) + "]";
+	return "HandShake [peerID=" + to_string(this->getPeerID()) + "]";
 }
 };
 
